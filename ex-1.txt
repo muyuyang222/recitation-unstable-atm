@@ -1,0 +1,7 @@
+Name: Sam Sepiol
+Card Number: 12345678
+PIN: 1234
+----------------------------
+Withdrawal - Amount: $200.40, Updated Balance: $99.90
+Deposit - Amount: $40000.00, Updated Balance: $40099.90
+Deposit - Amount: $32000.00, Updated Balance: $72099.90

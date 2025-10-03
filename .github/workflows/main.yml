@@ -1,0 +1,44 @@
+name: Verify Test Suite
+
+on:
+  push:
+    paths:
+      - 'tests/tests.cc'
+
+jobs: 
+  TestVerificationPipeline:
+    if: github.actor != 'github-actions[bot]' && github.event.head_commit.message != 'Initial commit'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: delete old feedback
+        run: |
+          if [ -f feedback.txt ]; then
+            rm feedback.txt
+          fi
+
+      - name: run script to verify test cases
+        id: runscript
+        run: python3 ./.recitation-system/check_tests.cpython-310.pyc
+      
+      - name: generate feedback
+        run: |
+          git config --global user.name 'ggavin3'
+          git config --global user.email 'gavingoddard@verysafe.com'
+          git add feedback.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "feedback on test suite"
+            git push
+          fi
+          
+      - name: deliver source code
+        if: steps.runscript.outputs.result == 'passed'
+        run: |
+          git config --global user.name 'janicej0nes'
+          git config --global user.email 'janicej0nes@trustybank.com'
+          (git add src/atm.cc && git add Makefile && git commit -m "ATM source code added" && git push)
