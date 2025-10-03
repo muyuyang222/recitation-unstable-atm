@@ -24,7 +24,7 @@ jobs:
 
       - name: run script to verify test cases
         id: runscript
-        run: python3 ./.recitation-system/check_tests.cpython-310.pyc
+        run: python3 ./.recitation-system/check_tests.cpython-313.pyc
       
       - name: generate feedback
         run: |
