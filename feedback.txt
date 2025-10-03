@@ -1,0 +1,15 @@
+1. Your test suite properly identified the correct solution!
+
+2. Your test suite did not perform as expected.
+HINT: What should happen if we register an account that already exists?
+
+3. Your test suite did not perform as expected.
+HINT: Try withdrawing a negative amount of cash.
+
+4. Your test suite did not perform as expected.
+HINT: Does the account's balance appear as expected after we make a deposit?
+
+5. Your test suite did not perform as expected.
+HINT: Should we be printing a ledger for an account that doesn't exist?
+
+score: 1/5
