@@ -1,29 +1,17 @@
 CXX=clang++
-CXX_FLAGS=-std=c++20 -Iincludes -Wall -Wextra -O0 -g -fsanitize=address
-
-ARCH := $(shell uname -m)
-
-ifeq ($(ARCH),x86_64)
-    ATM_OBJ=./x86_64/atm.o
-else ifeq ($(ARCH),arm64)
-    ATM_OBJ=./arm64/atm.o
-else ifeq ($(ARCH),aarch64)
-    ATM_OBJ=./aarm64/atm.o
-else
-    $(error Unsupported architecture: $(ARCH))
-endif
+CXX_FLAGS=-std=c++20 -Iincludes -Wall -Wextra -O0 -g -fsanitize=address -O0
 
 exec: bin/exec
 tests: bin/tests
 
-bin/exec: ./src/driver.cc ./includes/atm.hpp $(ATM_OBJ)
-	$(CXX) $(CXX_FLAGS) ./src/driver.cc $(ATM_OBJ) -o $@
+bin/exec: ./src/driver.cc ./includes/atm.hpp ./src/atm.cc
+	$(CXX) $(CXX_FLAGS) ./src/driver.cc ./src/atm.cc -o $@
 
-bin/tests: ./tests/tests.cc ./includes/atm.hpp $(ATM_OBJ)
-	$(CXX) $(CXX_FLAGS) ./tests/tests.cc $(ATM_OBJ) -o $@
+bin/tests: ./tests/tests.cc ./includes/atm.hpp  ./src/atm.cc
+	$(CXX) $(CXX_FLAGS) ./tests/tests.cc ./src/atm.cc -o $@
 
 .DEFAULT_GOAL := exec
-.PHONY: exec tests clean
+.PHONY: exec tests
 
 clean:
 	rm -rf bin/*
